@@ -19,7 +19,8 @@ const registrar = async (req, res) => {
 
 emailRegistro({
     email:usuario.email,
-    nombre: usuario.nombre,
+    nombre: usuario.primernombre,
+    apellido:usuario.primerapellido,
     token:usuario.token
 })
         res.json({
@@ -99,6 +100,7 @@ await usuario.save();
 emailOlvidePassword({
     email:usuario.email,
     nombre:usuario.nombre,
+    apellido:usuario.apellido,
     token:usuario.token,
   });
 

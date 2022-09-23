@@ -30,8 +30,8 @@ const nuevoProyecto = async (req, res) => {
 const obtenerProyecto = async (req, res) => {
     const { id } = req.params;
 
-    const proyecto = await Proyecto.findById(id).populate({path:'tareas', populate: {path:'completado',select:"nombre"}})
-    .populate('colaboradores',"email nombre");
+    const proyecto = await Proyecto.findById(id).populate({path:'tareas', populate: {path:'completado',select:"primernombre primerapellido celular"}})
+    .populate('colaboradores',"email primernombre primerapellido ");
     //console.log(proyecto)
 
     if (!proyecto) {
@@ -107,12 +107,13 @@ const eliminarProyecto = async (req, res) => {
 
 const buscarColaborador = async (req, res) => {
     const { email } = req.body
-    const usuario = await Usuario.findOne({ email }).select('-confirmado -createdAt -password -token -updatedAt -__v')
+    const usuario = await Usuario.findOne({ email })
 
     if (!usuario) {
         const error = new Error("Usuario no encontrado");
         return res.status(404).json({ msg: error.message });
     }
+    //console.log(usuario)
     res.json(usuario);
 
 };
@@ -132,7 +133,7 @@ const agregarColaborador = async (req, res) => {
     };
  
     const { email } = req.body
-    const usuario = await Usuario.findOne({ email }).select('-confirmado -createdAt -password -token -updatedAt -__v')
+    const usuario = await Usuario.findOne({ email })
   
     if (!usuario) {
         const error = new Error("Usuario no encontrado");
