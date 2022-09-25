@@ -53,7 +53,7 @@ if(!usuario.confirmado){
 if(await usuario.comprobarPassword(password)){
     res.json({
         _id:usuario._id,
-        nombre:usuario.nombre,
+        nombre:usuario.primernombre,
         email: usuario.email,
         token:generarJWT(usuario._id),
     });
@@ -99,8 +99,8 @@ await usuario.save();
 //enviar email
 emailOlvidePassword({
     email:usuario.email,
-    nombre:usuario.nombre,
-    apellido:usuario.apellido,
+    nombre:usuario.primernombre,
+    apellido:usuario.primerapellido,
     token:usuario.token,
   });
 
